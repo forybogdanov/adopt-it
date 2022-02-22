@@ -1,1 +1,1 @@
-Basic social network
+Site for animal adoption
