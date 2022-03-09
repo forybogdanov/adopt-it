@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Data;
+using WebApplication1.Services;
 
 namespace WebApplication1
 {
@@ -24,6 +26,9 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton<IData, Data.Data>();
+            services.AddScoped<IUserService, UserService>(); //asp 6te idi vidi userServ i 6te vidi kakvo se iziskva ako ima konstryktor i v sly4aq instanciq poneje nqmam nikde instanciq i tam kudeto se iziskva(primer v userController) 6te podava tazi suzdadena instanciq
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
