@@ -18,7 +18,7 @@ namespace WebApplication1.Models
         {
             Id = id;
             Description = description;
-            AnimalModel = animal;
+            Animal = animal;
             userId = userId;
             Created = created;
         }

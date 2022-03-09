@@ -12,6 +12,10 @@ namespace WebApplication1.Models
         private string specie;
         private string status; // lost found stray
 
+        public AnimalModel()
+        {
+        }
+
         public AnimalModel(string name, int age, string specie, string status)
         {
             Name = name;
