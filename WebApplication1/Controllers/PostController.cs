@@ -22,13 +22,21 @@ namespace WebApplication1.Controllers
 
             return View(posts);
         }
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
-        public IActionResult ViewPost()
+        [HttpPost]
+        public IActionResult Create(Post post)
         {
+            postService.Create(post);
             return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult ViewPost(int id)
+        {
+            return View(postService.GetById(id));
         }
     }
 }

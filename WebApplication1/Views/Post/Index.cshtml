@@ -3,15 +3,17 @@
 @{
     ViewData["Title"] = "Index";
 }
-@foreach (var post in Model)
-{
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">@post.Animal.Name</h5>
-            <p class="card-text">@post.Description</p>
-            <a asp-action="ViewPost" asp-controller="Post" class="btn btn-primary">Go somewhere</a>
+<div class="container row">
+    @foreach (var post in Model)
+    {
+        <div class="card m-1" style="width: 18rem;">
+            <img class="card-img-top" src="~/dog.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@post.Animal.Name</h5>
+                <p class="card-text">@post.Description</p>
+                <a asp-action="ViewPost" asp-route-id="@post.Id" asp-controller="Post" class="btn btn-primary">View</a>
+            </div>
         </div>
-    </div>
-}
+    }
+</div>
 

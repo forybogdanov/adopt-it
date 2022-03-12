@@ -11,15 +11,19 @@ namespace WebApplication1.Models
         private string description;
         private Animal animal = new Animal();
         private int userId;
+        private string author;
+        private string authorEmail;
         private DateTime created;
-        
 
-        public Post(int id, string description, Animal animal, int userId, DateTime created)
+
+        public Post(int id, string description, Animal animal, int userId, string author, string authorEmail, DateTime created)
         {
             Id = id;
             Description = description;
             Animal = animal;
-            userId = userId;
+            UserId = userId;
+            Author = author;
+            AuthorEmail = authorEmail;
             Created = created;
         }
 
@@ -47,6 +51,17 @@ namespace WebApplication1.Models
         {
             get { return created; }
             set { created = value; }
+        }
+        public string Author
+        {
+            get { return author; }
+            set { author = value; }
+        }
+
+        public string AuthorEmail 
+        {
+            get { return authorEmail; }
+            set { authorEmail = value; }
         }
     }
 }

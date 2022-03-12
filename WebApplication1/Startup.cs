@@ -26,7 +26,7 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<IPostService, PostService>();
+            services.AddSingleton<IPostService, PostService>();
             services.AddSingleton<IData, Data.Data>();
         }
 
