@@ -17,7 +17,7 @@ namespace WebApplication1.Services
         {
             this.data = data;
             Create(new Post(lastId++, "description 13232ewfw", new Animal("Sharo", 3, "dog", "stray"), 0, new DateTime()));
-            Create(new Post(lastId++, "description 13232ewfw", new Animal("Mecho", 7, "dog", "lost"), 0, new DateTime()));
+            Create(new Post(lastId++, "description cmwpd,", new Animal("Mecho", 7, "dog", "lost"), 0, new DateTime()));
 
         }
         public void Create(Post post)
