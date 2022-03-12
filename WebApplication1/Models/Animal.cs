@@ -5,23 +5,23 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Models
 {
-    public class AnimalModel
+    public class Animal
     {
         private string name;
         private int age;
-        private string specie;
-        private string status; // lost found stray
+        private string species;
+        private string status; // lost/found/stray
 
-        public AnimalModel()
+        public Animal()
         {
         }
 
-        public AnimalModel(string name, int age, string specie, string status)
+        public Animal(string name, int age, string species, string status)
         {
             Name = name;
             Age = age;
-            Specie = specie;
-            status = status;
+            Specie = species;
+            Status = status;
         }
 
         public string Name
@@ -36,8 +36,8 @@ namespace WebApplication1.Models
         }
         public string Specie
         {
-            get { return specie; }
-            set { specie = value; }
+            get { return species; }
+            set { species = value; }
         }
         public string Status
         {

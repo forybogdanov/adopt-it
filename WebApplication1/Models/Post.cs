@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Models
 {
-    public class PostModel
+    public class Post
     {
         private int id;
         private string description;
-        private AnimalModel animal = new AnimalModel();
+        private Animal animal = new Animal();
         private int userId;
         private DateTime created;
         
 
-        public PostModel(int id, string description, AnimalModel animal, int userId, DateTime created)
+        public Post(int id, string description, Animal animal, int userId, DateTime created)
         {
             Id = id;
             Description = description;
@@ -33,7 +33,7 @@ namespace WebApplication1.Models
             get { return description; }
             set { description = value; }
         }
-        public AnimalModel Animal
+        public Animal Animal
         {
             get { return animal; }
             set { animal = value; }
