@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Data;
+using WebApplication1.Models;
 using WebApplication1.Services;
 
 namespace WebApplication1
@@ -27,8 +30,18 @@ namespace WebApplication1
         {
             services.AddControllersWithViews();
             services.AddSingleton<IData, Data.Data>();
-            services.AddScoped<IUserService, UserService>(); //asp 6te idi vidi userServ i 6te vidi kakvo se iziskva ako ima konstryktor i v sly4aq instanciq poneje nqmam nikde instanciq i tam kudeto se iziskva(primer v userController) 6te podava tazi suzdadena instanciq
+            services.AddScoped <IUserService, UserService>(); 
+            services.AddDbContext<UserDbContext>(options =>
+           {
+               options.UseMySQL("Server=localhost;Database=user_db;Uid=root;Pwd=gerganass;");
+           });
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option =>
+                {
+                    option.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Details");
+                    option.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User/Index");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +62,7 @@ namespace WebApplication1
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

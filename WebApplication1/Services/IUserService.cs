@@ -9,12 +9,16 @@ namespace WebApplication1.Services
 {
     public interface IUserService
     {
-        //List<UserDTO> GetAll();
+        /*void Edit(int id , UserDTO user);*/
 
-        void Edit(int id , UserDTO user);
-        void Delete(int id);
+        int LoggedId { get; }
+        User GetEntityById(int id);
         UserDTO GetById(int id);
-        void Create(UserDTO user);
+
+        bool Create(UserDTO user);
         bool Login(UserDTO user);
+        void Logout();
+        void Update( string firstName, string lastName, string city, string phoneNumber);
+        void Delete();
     }
 }

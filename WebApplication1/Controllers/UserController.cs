@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication1.Models.DTOs;
 using WebApplication1.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
     public class UserController : Controller
     {
         private IUserService userService;
-        
+
         public UserController(IUserService userService)
         {
             this.userService = userService;
@@ -28,19 +32,20 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-       /* [HttpPost]
-        public IActionResult Create(string username, string email, string password)
-        {
-            userService.Create(username, email, password);
-
-            return RedirectToAction(nameof(Index));  //s nameof ako promenim imeto na Index ot otgore i tyk 6te se promeni
-        }*/
         [HttpPost]
-        public IActionResult Create(UserDTO user) // sega user entity iz4ezva ot kontrolera 
+        public IActionResult Create(UserDTO user) 
         {
-            userService.Create(user);
 
-            return RedirectToAction(nameof(Index)); 
+            bool isCreated = userService.Create(user);
+
+            if (isCreated)
+            {
+                TempData["signupDefaultMessage"] = null;
+                return View(LoginAsync(user));
+            }
+            TempData["signupDefaultMessage"] = false;
+            return RedirectToAction("Create");
+
         }
 
 
@@ -51,18 +56,72 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UserDTO user)
+        public async Task<IActionResult> LoginAsync(UserDTO userDTO)
         {
-            bool command=userService.Login(user);
+            bool isLogged=userService.Login(userDTO);
             
-            if (command)
+            if (isLogged)
             {
+                var user = userService.GetById(userService.LoggedId);  
+                
+                Claim[] claims = new[] { new Claim(ClaimTypes.Sid, user.Id.ToString()),
+                     new Claim(ClaimTypes.Name, user.Username),
+                     new Claim(ClaimTypes.Email, user.Email),
+                     new Claim(ClaimTypes.Role, user.Role),};
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(
+                                         CookieAuthenticationDefaults.AuthenticationScheme,
+                                         new ClaimsPrincipal(identity),
+                                         new AuthenticationProperties
+                                         {
+                                             IsPersistent = false   //remember me
+                                               });
+                
+
                 TempData["loginDefaultMessage"] = null;
                 return RedirectToAction("Index", "Home");
-                // return View(nameof(Create));
             }
             TempData["loginDefaultMessage"] = false;
             return RedirectToAction("Login");
+        }
+
+
+        
+
+
+        [HttpGet]
+       // [Authorize(Roles = "User")]
+        public IActionResult Details()
+        {
+           UserDTO userDTO= userService.GetById(userService.LoggedId);
+            return View(userDTO);
+        }
+
+        [HttpPost]
+        public IActionResult Update(string firstName, string lastName,string city, string phoneNumber)
+        {
+            userService.Update( firstName,  lastName,  city,  phoneNumber);
+
+            return RedirectToAction(nameof(Details));
+        }
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            userService.Delete();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogoutAsync()
+        {
+            userService.Logout();
+
+            await HttpContext.SignOutAsync();
+                return RedirectToAction("Index", "Home");
+            
         }
 
     }
