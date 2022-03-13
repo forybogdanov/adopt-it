@@ -26,6 +26,16 @@ namespace WebApplication1.Models
             AuthorEmail = authorEmail;
             Created = created;
         }
+        public Post()
+        {
+            Id = -1;
+            Description = "";
+            Animal = new Animal();
+            UserId = -1;
+            Author = "";
+            AuthorEmail = "";
+            Created = new DateTime();
+        }
 
         public int Id
         {

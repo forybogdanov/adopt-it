@@ -14,13 +14,17 @@ namespace WebApplication1.Models
 
         public Animal()
         {
+            Name = "";
+            Age = 0;
+            Species = "";
+            status = "";
         }
 
         public Animal(string name, int age, string species, string status)
         {
             Name = name;
             Age = age;
-            Specie = species;
+            Species = species;
             Status = status;
         }
 
@@ -34,7 +38,7 @@ namespace WebApplication1.Models
             get { return age; }
             set { age = value; }
         }
-        public string Specie
+        public string Species
         {
             get { return species; }
             set { species = value; }

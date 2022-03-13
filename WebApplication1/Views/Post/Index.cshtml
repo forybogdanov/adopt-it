@@ -11,6 +11,8 @@
             <div class="card-body">
                 <h5 class="card-title">@post.Animal.Name</h5>
                 <p class="card-text">@post.Description</p>
+                <p>Created: @post.Created</p>
+                <p>Status: @post.Animal.Status</p>
                 <a asp-action="ViewPost" asp-route-id="@post.Id" asp-controller="Post" class="btn btn-primary">View</a>
             </div>
         </div>
