@@ -52,6 +52,10 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
+            return View(postService.GetById(id));
+        }
+        public IActionResult ConfirmDelete(int id)
+        {
             postService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
