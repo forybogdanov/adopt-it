@@ -27,12 +27,15 @@ namespace WebApplication1.Services
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Post post = GetById(id);
+            data.Posts.Remove(post);
         }
 
-        public void Edit(int id, Post post)
+        public void Edit(Post post)
         {
-            throw new NotImplementedException();
+            Post oldPost = GetById(post.Id);
+            oldPost.Description = post.Description;
+            oldPost.Animal = post.Animal;
         }
 
         public Post GetById(int id)

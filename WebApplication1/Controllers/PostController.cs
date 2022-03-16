@@ -22,6 +22,22 @@ namespace WebApplication1.Controllers
 
             return View(posts);
         }
+        public IActionResult Edit()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            return View(postService.GetById(id));
+        }
+        [HttpPost]
+        public IActionResult Edit(int id, Post post)
+        {
+            post.Id = id;
+            postService.Edit(post);
+            return RedirectToAction(nameof(Index));
+        }
         [HttpGet]
         public IActionResult Create()
         {
@@ -31,6 +47,12 @@ namespace WebApplication1.Controllers
         public IActionResult Create(Post post)
         {
             postService.Create(post);
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            postService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]

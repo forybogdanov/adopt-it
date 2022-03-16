@@ -6,10 +6,15 @@
 <div>
     <h4>@Model.Animal.Name</h4>
     <img src="~/dog.jpg" width="200" height="200" class="img-thumbnail" alt="Card image cap">
-    <br/>
+    <br />
     <div class="col">
         <p class="row">Age: @Model.Animal.Age<p>
+        <p class="row">@Model.Animal.Status</p>
+        <p class="row">@Model.Animal.Species</p>
         <p class="row">@Model.Description</p>
         <p class="row">Posted by: @Model.Author (@Model.AuthorEmail)</p>
+    </div>
+    <div>
+        <a asp-action="Index">Back</a>
     </div>
 </div>
