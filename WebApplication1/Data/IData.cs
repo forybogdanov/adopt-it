@@ -7,5 +7,7 @@ namespace WebApplication1.Data
     {
         List<User> Users { get; set; }
         List<Post> Posts { get; set; }
+        List<Animal> Animals { get; set; }
+
     }
 }
