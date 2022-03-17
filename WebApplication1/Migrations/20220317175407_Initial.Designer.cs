@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1.Data;
 
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220317175407_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,10 +93,10 @@ namespace WebApplication1.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("text");
@@ -130,10 +132,10 @@ namespace WebApplication1.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("Value")
                         .HasColumnType("text");

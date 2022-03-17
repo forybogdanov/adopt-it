@@ -11,88 +11,34 @@ namespace WebApplication1.Services
     public class UserService : IUserService
     {
         private UserDbContext dbContext;
-        private int loggedId;
-        public int LoggedId { get => findLoggedId();  }
 
 
-        //private IData data;
-        //private int id = -1;
-        /* public UserService(IData data)
-         {
-             this.data = data;
-             Create(new UserDTO(0, "asd", "as@gmail.com", "pass"));
-             Create(new UserDTO(0, "asd2", "asd@gmail.com", "pass"));
-             Create(new UserDTO(1, "asd3", "asf@gmail.com", "pass"));
-         }*/
 
         public UserService(UserDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public bool Login(UserDTO userDTO)
+
+
+        public void Update(int id, UserDTO userDTO)
         {
-            User user = dbContext.Users.FirstOrDefault(u => u.Email == userDTO.Email && u.Password == userDTO.PlainPassword); //passwords????
+            User user = this.GetEntityById(id);
 
-            if (user == null)
-            {
-                return false;
-            }
-            user.Role = "User";
-            dbContext.SaveChanges();
-
-            loggedId = user.Id;
-            return true;
-        }
-
-        public void Logout()
-        {
-            User user = GetEntityById(LoggedId);
-            user.Role = "NoUser";
-            dbContext.SaveChanges();
-        }
-
-        public bool Create(UserDTO userDTO)
-        {
-            if (dbContext.Users.FirstOrDefault(u  => u.Email == userDTO.Email) != null)
-            {
-                return false;
-            }
-
-            try
-            {
-                User user = toEntity(userDTO); // ????????????password
-
-                dbContext.Users.Add(user);
-                dbContext.SaveChanges();
-                return true;
-            }
-            catch (ArgumentException ex)
-            {
-                //throw new InvalidOperationException(ex.Message);
-                return false;
-            }
-            
-        }
-
-       
-
-        public void Update( string firstName, string lastName, string city, string phoneNumber)
-        {
-            User user = this.GetEntityById(LoggedId);
-            user.PhoneNumber = phoneNumber;
-            user.FirstName = firstName;
-            user.LastName = lastName;
-            user.City = city;
+            user.PhoneNumber = userDTO.PhoneNumber;
+            user.FirstName = userDTO.FirstName;
+            user.LastName = userDTO.LastName;
+            user.City = userDTO.City;
 
             dbContext.SaveChanges();
         }
 
 
-        public void Delete()
+        public void Delete(int id)
         {
-            User user = this.GetEntityById(LoggedId);
+            User user = this.GetEntityById(id);
             dbContext.Users.Remove(user);
+
             dbContext.SaveChanges();
 
         }
@@ -113,23 +59,16 @@ namespace WebApplication1.Services
 
         private User toEntity(UserDTO userDTO)
         {
-            return new User(
-                    userDTO.Id, userDTO.Username, userDTO.Email, userDTO.PlainPassword,
-                    userDTO.FirstName, userDTO.LastName, userDTO.PhoneNumber, userDTO.City); //??????????????? 
+            return new User();
         }
 
         private UserDTO toDTO(User user)
         {
             return new UserDTO(
-                user.Id, user.Username, user.Email, user.Password,
-                user.FirstName, user.LastName, user.PhoneNumber, user.City,user.Role); //???????????????
+                user.Id, user.UserName, user.Email, user.PasswordHash,
+                user.FirstName, user.LastName, user.PhoneNumber, user.City); 
         }
 
-        private int findLoggedId()
-        {
-            User user = dbContext.Users.FirstOrDefault(u=> u.Role=="User");
-            
-            return user.Id;
-        }
+
     }
 }

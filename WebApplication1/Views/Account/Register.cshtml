@@ -1,6 +1,7 @@
-﻿@*<section class="vh-100 gradient-custom">
-*@    
-<form asp-action="Create" asp-controller="User">
+﻿@{ 
+    List<Microsoft.AspNetCore.Identity.IdentityError> errors = (List<Microsoft.AspNetCore.Identity.IdentityError>)ViewData["errors"];
+} 
+<form asp-action="Register" asp-controller="Account">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -17,7 +18,18 @@
                             }
                             else
                             {
-                                <p style="color:orangered">Email already in use or no data entered!</p>
+                                @if (errors != null && errors.Any())
+                                {
+                                    foreach (var err in errors)
+                                    {
+                                        <p style="color:orangered"> @err.Description</p>
+                                    }
+
+                                }
+                                else
+                                {
+                                <p style="color:orangered">No data entered!</p>
+                                }
                             }
 
                             <div class="form-outline form-white mb-4">
@@ -41,7 +53,7 @@
                         </div>
 
                         <div>
-                            <p class="mb-0">Already have an account? <a href="#!" onclick="location.href='@Url.Action("Login", "User")'" class="text-white-50 fw-bold">Login</a></p>
+                            <p class="mb-0">Already have an account? <a href="#!" onclick="location.href='@Url.Action("Login", "Account")'" class="text-white-50 fw-bold">Login</a></p>
                         </div>
 
                     </div>
@@ -50,4 +62,3 @@
         </div>
     </div>
 </form>
-@*</section>*@

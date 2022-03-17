@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,19 +29,29 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IData, Data.Data>();
             services.AddScoped <IUserService, UserService>(); 
             services.AddDbContext<UserDbContext>(options =>
            {
-               options.UseMySQL("Server=localhost;Database=user_db;Uid=root;Pwd=gerganass;");
+               options.UseMySQL(Configuration.GetConnectionString("DEV"), b => b.MigrationsAssembly("WebApplication1"));
            });
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(option =>
-                {
-                    option.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Details");
-                    option.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User/Index");
-                });
+            services.AddIdentity<User, IdentityRole<int>>(opt =>
+            {
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequiredUniqueChars = 1;
+                opt.Password.RequiredLength = 3;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+
+
+                opt.SignIn.RequireConfirmedAccount = false;
+                
+                
+                opt.User.RequireUniqueEmail = true ; 
+            })
+                .AddEntityFrameworkStores<UserDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
