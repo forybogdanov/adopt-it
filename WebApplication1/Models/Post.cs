@@ -19,7 +19,6 @@ namespace WebApplication1.Models
         public string AuthorEmail { get; set; }
         public DateTime Created { get; set; }
 
-
         public Post(int id, string description, Animal animal, int userId, string author, string authorEmail, DateTime created)
         {
             Id = id;

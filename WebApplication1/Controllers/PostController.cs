@@ -25,6 +25,12 @@ namespace WebApplication1.Controllers
 
             return View(posts);
         }
+        public async Task<IActionResult> UserPostsAsync()
+        {
+            User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
+            List<Post> posts = postService.GetUserPosts(user.Id);
+            return View(posts);
+        }
         public IActionResult Edit()
         {
             return View();

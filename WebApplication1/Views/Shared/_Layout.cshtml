@@ -31,12 +31,17 @@
                         @if (this.signinManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Details">Profile</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Create">Create post</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout @User.Identity.Name</a>
-                            </li> 
-
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="UserPosts">See my posts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Details">Profile(@User.Identity.Name)</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
                         }
                         else
                         {
