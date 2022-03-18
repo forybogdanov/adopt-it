@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Data;
+using WebApplication1.Models;
 using WebApplication1.Services;
 
 namespace WebApplication1
@@ -26,8 +29,31 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped <IUserService, UserService>();
             services.AddSingleton<IPostService, PostService>();
             services.AddSingleton<IData, Data.Data>();
+            services.AddDbContext<UserDbContext>(options =>
+           {
+               options.UseMySQL(Configuration.GetConnectionString("DEV"), b => b.MigrationsAssembly("WebApplication1"));
+           });
+
+            services.AddIdentity<User, IdentityRole<int>>(opt =>
+            {
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequiredUniqueChars = 1;
+                opt.Password.RequiredLength = 3;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+
+
+                opt.SignIn.RequireConfirmedAccount = false;
+                
+                
+                opt.User.RequireUniqueEmail = true ; 
+            })
+                .AddEntityFrameworkStores<UserDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +74,7 @@ namespace WebApplication1
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
