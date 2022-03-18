@@ -52,7 +52,7 @@ namespace WebApplication1.Controllers
                 if (result.Succeeded)
                 {
                     TempData["signupDefaultMessage"] = null;
-                    return RedirectToAction(nameof(Index), "Home");
+                    return RedirectToAction(nameof(Login));
                 }
 
                 List<IdentityError> errors = new List<IdentityError>(result.Errors);

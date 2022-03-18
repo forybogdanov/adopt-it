@@ -15,8 +15,7 @@
                 <p>Status: @post.Animal.Status</p>
                 <a asp-action="ViewPost" asp-route-id="@post.Id" asp-controller="Post" class="btn btn-primary">View</a>
                 <a asp-action="Delete" asp-route-id="@post.Id" asp-controller="Post" class="btn btn-primary">Delete</a>
-                @*                <a asp-action="Edit" asp-route-id="@post.Id" asp-controller="Post" class="btn btn-primary">Edit</a>
-                *@
+                <a asp-action="Edit" asp-route-id="@post.Id" asp-controller="Post" class="btn btn-primary">Edit</a>
             </div>
         </div>
     }

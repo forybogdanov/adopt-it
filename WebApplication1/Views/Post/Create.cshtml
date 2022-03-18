@@ -21,8 +21,8 @@
                                 <label class="form-label" for="animalSpeciesInput">Species</label>
                                 <input type="text" id="animalSpeciesInput" class="form-control form-control-lg" name="animal.species" />
                             </div>
-                            <select class="form-outline form-white mb-4" aria-label="Default select example" name="animal.status">
-                                <option selected>Select</option>
+                            <select class="form-outline custom-select form-white mb-4" aria-label="Default select example" name="animal.status">
+                                <option selected>Select status</option>
                                 <option value="stray">stray</option>
                                 <option value="lost">lost</option>
                                 <option value="found">found</option>
@@ -32,7 +32,7 @@
                                 <input type="text" id="description" class="form-control form-control-lg" name="description" />
                             </div>
                             <button class="btn btn-outline-light btn-lg px-5" type="submit">Create</button>
-                            <button class="btn btn-outline-light btn-lg px-5">Cancel</button>
+                            <button class="btn btn-outline-light btn-lg px-5" asp-action="Index" asp-controller="Post">Cancel</button>
                         </div>
                     </div>
                 </div>

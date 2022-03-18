@@ -14,5 +14,6 @@ namespace WebApplication1.Services
         Post GetById(int id);
         void Create(Post post);
         List<Post> GetAll();
+        List<Post> GetUserPosts(int id);
     }
 }

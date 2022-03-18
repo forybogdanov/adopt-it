@@ -9,26 +9,36 @@ namespace WebApplication1.Services
 {
     public class AnimalService : IAnimalService
     {
-        private IData data;
-        private int id = 0;
+        private UserDbContext dbContext;
+
+        public AnimalService(UserDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
+
         public void Create(Animal animal)
         {
-            throw new NotImplementedException();
+            dbContext.Animals.Add(animal);
+            dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            dbContext.Animals.Remove(GetById(id));
+            dbContext.SaveChanges();
         }
 
         public void Edit(Animal animal)
         {
-            throw new NotImplementedException();
+            Animal oldAnimal = GetById(animal.Id);
+            oldAnimal = animal;
+            dbContext.SaveChanges();
         }
 
         public Animal GetById(int id)
         {
-            throw new NotImplementedException();
+            return dbContext.Animals.FirstOrDefault(p => p.Id == id);
         }
     }
 }

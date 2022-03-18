@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace WebApplication1.Controllers
     public class PostController : Controller
     {
         private IPostService postService;
-        public PostController(IPostService postService)
+        private UserManager<User> userManager;
+        public PostController(IPostService postService, UserManager<User> userManager)
         {
             this.postService = postService;
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
@@ -44,8 +47,14 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Post post)
+        public async Task<IActionResult> CreateAsync(Post post)
         {
+            if (!ModelState.IsValid) return View();
+            User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
+            post.UserId = user.Id;
+            post.Author = user.UserName;
+            post.AuthorEmail = user.Email;
+            post.Created = DateTime.Now;
             postService.Create(post);
             return RedirectToAction(nameof(Index));
         }
