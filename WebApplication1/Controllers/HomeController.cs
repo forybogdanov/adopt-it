@@ -7,12 +7,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Models;
 using Microsoft.AspNetCore.Identity;
+using WebApplication1.Services;
 
 
 namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<User> signInManager;
 
@@ -21,7 +23,6 @@ namespace WebApplication1.Controllers
             this.signInManager = signInManager;
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             if (this.User != null)

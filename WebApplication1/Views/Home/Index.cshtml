@@ -1,8 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+.welcomeContainer { 
+    background-image: url("https://www.pngitem.com/pimgs/m/13-130914_smarttrack-mascotas-many-dogs-and-cats-hd-png.png"); background-size: cover; 
+    background-size: cover;
+    height: 500px;
+}
+</style>
+<div class="welcomeContainer column align-items-end">
+    <p class="col">Welcome to Adopt It - the perfect place to adopt a pet, to find your lost pet or to post a pet you found on the streets that needs a home.</p>
+    <a class="col" asp-action="Index" asp-controller="Post">View all animals</a>
 </div>

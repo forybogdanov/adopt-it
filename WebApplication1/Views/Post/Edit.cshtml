@@ -1,0 +1,49 @@
+﻿@model Post
+
+@{
+    ViewData["Title"] = "View";
+}
+<h2>Edit @Model.Animal.Name</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-route-id="@Model.Id">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Animal.Name" class="control-label"></label>
+                <input asp-for="Animal.Name" class="form-control" />
+                <span asp-validation-for="Animal.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Animal.Age" class="control-label"></label>
+                <input asp-for="Animal.Age" class="form-control" />
+                <span asp-validation-for="Animal.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Animal.Species" class="control-label"></label>
+                <input asp-for="Animal.Species" class="form-control" />
+                <span asp-validation-for="Animal.Species" class="text-danger"></span>
+            </div>
+            <select value="@Model.Animal.Status" class="form-outline form-white mb-4" aria-label="Default select example" name="animal.status">
+                <option value="stray">stray</option>
+                <option value="lost">lost</option>
+                <option value="found">found</option>
+            </select>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Cancel</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

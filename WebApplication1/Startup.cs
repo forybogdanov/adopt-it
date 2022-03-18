@@ -29,7 +29,9 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped <IUserService, UserService>(); 
+            services.AddScoped <IUserService, UserService>();
+            services.AddSingleton<IPostService, PostService>();
+            services.AddSingleton<IData, Data.Data>();
             services.AddDbContext<UserDbContext>(options =>
            {
                options.UseMySQL(Configuration.GetConnectionString("DEV"), b => b.MigrationsAssembly("WebApplication1"));
