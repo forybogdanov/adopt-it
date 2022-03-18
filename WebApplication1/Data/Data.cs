@@ -10,10 +10,13 @@ namespace WebApplication1.Data
     {
         public List<User> Users { get; set; }
         public List<Post> Posts { get; set; }
+        public List<Animal> Animals { get; set; }
+
         public Data()
         {
             this.Users = new List<User>();
             this.Posts = new List<Post>();
+            this.Animals = new List<Animal>();
         }
     }
 }

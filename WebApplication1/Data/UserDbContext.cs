@@ -7,7 +7,8 @@ namespace WebApplication1.Data
 {
     public class UserDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
-       // public DbSet<Post> Posts { get; set; }
+       public DbSet<Post> Posts { get; set; }
+        public DbSet<Animal> Animals { get; set; }
 
         public UserDbContext(DbContextOptions options): base(options)
         {
