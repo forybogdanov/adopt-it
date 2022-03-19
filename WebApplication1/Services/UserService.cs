@@ -19,8 +19,17 @@ namespace WebApplication1.Services
             this.dbContext = dbContext;
         }
 
+        //
+        // Summary:
+        //    Implements CRUD operations with DB for the class User
+        //
 
 
+        //
+        // Summary:
+        //     Updates the DB for a User
+        //
+        
         public void Update(int id, UserDTO userDTO)
         {
             User user = this.GetEntityById(id);
@@ -33,7 +42,10 @@ namespace WebApplication1.Services
             dbContext.SaveChanges();
         }
 
-
+        //
+        // Summary:
+        //     Deletes a User by passed id from the DB
+        //
         public void Delete(int id)
         {
             User user = this.GetEntityById(id);
@@ -44,24 +56,31 @@ namespace WebApplication1.Services
         }
 
 
-        
+        //
+        // Summary:
+        //     Finds a User by passed id from the DB
+        //
         public User GetEntityById(int id)
         {
             return dbContext.Users.FirstOrDefault(u => u.Id == id);
 
         }
 
+        //
+        // Summary:
+        //     Finds a User by passed id from the DB and sends it like UserDTO
+        //
         public UserDTO GetById(int id)
         {
             return this.toDTO(dbContext.Users.FirstOrDefault(u => u.Id == id));
 
         }
 
-        private User toEntity(UserDTO userDTO)
-        {
-            return new User();
-        }
 
+        //
+        // Summary:
+        //     Returns a UserDTO by passed User
+        //
         private UserDTO toDTO(User user)
         {
             return new UserDTO(

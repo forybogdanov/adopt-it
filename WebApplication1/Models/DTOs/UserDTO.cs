@@ -28,7 +28,6 @@ namespace WebApplication1.Models.DTOs
 
         public int Id { get; set; }
 
-        /* [Required(ErrorMessage = "Name is required.")]*/
         public string Username { get; set; }
 
         public string PhoneNumber { get; set; }
@@ -36,7 +35,6 @@ namespace WebApplication1.Models.DTOs
         public string LastName { get; set; }
         public string City { get; set; }
 
-        /*[Required(ErrorMessage = "Email is required.")]*/
         public string Email { get; set; }
 
 

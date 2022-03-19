@@ -36,16 +36,13 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UserDTO userDTO)
         {
-            /*if (ModelState.IsValid)
-            {*/
+            
             User user = await userManager.GetUserAsync(User);
             _ = TempData["loggedId"];
             userService.Update(user.Id, userDTO);
 
-               
-            /*}*/
+            
             return RedirectToAction(nameof(Details));
-            /* return View(userDTO);*/
         }
 
         [HttpGet]
