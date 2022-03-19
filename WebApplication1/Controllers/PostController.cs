@@ -46,11 +46,11 @@ namespace WebApplication1.Controllers
             return View(postService.GetById(id));
         }
         [HttpPost]
-        public async Task<IActionResult> EditAsync(Post post)
+        public async Task<IActionResult> EditAsync(int id, Post post)
         {
             User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
             if (user is null) return RedirectToAction(nameof(Index));
-            if (post.UserId != user.Id) return RedirectToAction(nameof(UserPostsAsync));
+            if (postService.GetById(id).UserId != user.Id) return RedirectToAction(nameof(UserPostsAsync));
             postService.Edit(post);
             return RedirectToAction(nameof(Index));
         }
