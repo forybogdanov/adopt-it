@@ -11,14 +11,12 @@ namespace WebApplication1.Services
     public class UserService : IUserService
     {
         private UserDbContext dbContext;
-        private AnimalService animalService;
-        private PostService postService;
+
+
 
         public UserService(UserDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this.animalService = new AnimalService(dbContext);
-            this.postService = new PostService(dbContext);
         }
 
         //
@@ -31,7 +29,7 @@ namespace WebApplication1.Services
         // Summary:
         //     Updates the DB for a User
         //
-
+        
         public void Update(int id, UserDTO userDTO)
         {
             User user = this.GetEntityById(id);
@@ -51,13 +49,7 @@ namespace WebApplication1.Services
         public void Delete(int id)
         {
             User user = this.GetEntityById(id);
-            /*List<Post> posts = this.postService.GetUserPosts(id);
-            foreach (Post post in posts)
-            {
-                dbContext.Animals.Remove(this.animalService.GetById(post.AnimalId));
-            }*/
             dbContext.Users.Remove(user);
-
             dbContext.SaveChanges();
 
         }
