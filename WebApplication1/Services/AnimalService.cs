@@ -32,7 +32,10 @@ namespace WebApplication1.Services
         public void Edit(Animal animal)
         {
             Animal oldAnimal = GetById(animal.Id);
-            oldAnimal = animal;
+            oldAnimal.Age = animal.Age;
+            oldAnimal.Name = animal.Name;
+            oldAnimal.Species = animal.Species;
+            oldAnimal.Status = animal.Status;
             dbContext.SaveChanges();
         }
 
