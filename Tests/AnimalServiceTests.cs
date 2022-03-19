@@ -17,8 +17,6 @@ namespace Tests
 
         private UserDbContext context;
 
-        private Animal animal;
-
         private int animalId = 1;
 
         [SetUp]
