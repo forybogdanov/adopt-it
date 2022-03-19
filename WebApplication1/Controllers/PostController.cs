@@ -42,7 +42,7 @@ namespace WebApplication1.Controllers
             User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
             Post post = postService.GetById(id);
             if (user is null) return RedirectToAction(nameof(Index));
-            if (post.UserId != user.Id) return RedirectToAction(nameof(UserPostsAsync));
+            if (post.UserId != user.Id) return RedirectToAction(nameof(Index));
             return View(postService.GetById(id));
         }
         [HttpPost]
@@ -50,7 +50,7 @@ namespace WebApplication1.Controllers
         {
             User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
             if (user is null) return RedirectToAction(nameof(Index));
-            if (postService.GetById(id).UserId != user.Id) return RedirectToAction(nameof(UserPostsAsync));
+            if (postService.GetById(id).UserId != user.Id) return RedirectToAction(nameof(Index));
             postService.Edit(post);
             return RedirectToAction(nameof(Index));
         }
@@ -78,7 +78,7 @@ namespace WebApplication1.Controllers
             User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
             Post post = postService.GetById(id);
             if (user is null) return RedirectToAction(nameof(Index));
-            if (post.UserId != user.Id) return RedirectToAction(nameof(UserPostsAsync));
+            if (post.UserId != user.Id) return RedirectToAction(nameof(Index));
             return View(post);
         }
         public async Task<IActionResult> ConfirmDeleteAsync(int id)
@@ -86,7 +86,7 @@ namespace WebApplication1.Controllers
             User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
             Post post = postService.GetById(id);
             if (user is null) return RedirectToAction(nameof(Index));
-            if (post.UserId != user.Id) return RedirectToAction(nameof(UserPostsAsync));
+            if (post.UserId != user.Id) return RedirectToAction(nameof(Index));
             postService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
