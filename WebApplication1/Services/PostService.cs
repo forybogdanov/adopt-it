@@ -20,8 +20,6 @@ namespace WebApplication1.Services
             {
                 post.Animal = animalService.GetById(post.AnimalId);
             }
-            //Create(new Post(id++, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", new Animal("Sharo", 3, "dog", "stray"), 0, "Ivan", "ivan123@gmail.com", new DateTime()));
-            //Create(new Post(id++, "Tempor nec feugiat nisl pretium fusce id velit ut. Commodo ullamcorper a lacus vestibulum sed arcu non odio. ", new Animal("Mecho", 7, "dog", "lost"), 1, "Pesho", "pesho123@gmail.com", new DateTime()));
         }
         public void Create(Post post)
         {
@@ -38,7 +36,10 @@ namespace WebApplication1.Services
         {
             Post oldPost = GetById(post.Id);
             oldPost.Description = post.Description;
-            oldPost.Animal = post.Animal;
+            oldPost.Animal.Age = post.Animal.Age;
+            oldPost.Animal.Name = post.Animal.Name;
+            oldPost.Animal.Species = post.Animal.Species;
+            oldPost.Animal.Status = post.Animal.Status;
             dbContext.SaveChanges();
         }
 

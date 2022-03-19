@@ -28,6 +28,7 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> UserPostsAsync()
         {
             User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
+            if (user is null) return RedirectToAction(nameof(Index));
             List<Post> posts = postService.GetUserPosts(user.Id);
             return View(posts);
         }
@@ -36,14 +37,20 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> EditAsync(int id)
         {
+            User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
+            Post post = postService.GetById(id);
+            if (user is null) return RedirectToAction(nameof(Index));
+            if (post.UserId != user.Id) return RedirectToAction(nameof(UserPostsAsync));
             return View(postService.GetById(id));
         }
         [HttpPost]
-        public IActionResult Edit(int id, Post post)
+        public async Task<IActionResult> EditAsync(Post post)
         {
-            post.Id = id;
+            User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
+            if (user is null) return RedirectToAction(nameof(Index));
+            if (post.UserId != user.Id) return RedirectToAction(nameof(UserPostsAsync));
             postService.Edit(post);
             return RedirectToAction(nameof(Index));
         }
@@ -55,8 +62,9 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync(Post post)
         {
-            if (!ModelState.IsValid) return View();
             User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
+            if (user is null) return RedirectToAction(nameof(Index));
+            if (!ModelState.IsValid) return View();
             post.UserId = user.Id;
             post.Author = user.UserName;
             post.AuthorEmail = user.Email;
@@ -65,12 +73,20 @@ namespace WebApplication1.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            return View(postService.GetById(id));
+            User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
+            Post post = postService.GetById(id);
+            if (user is null) return RedirectToAction(nameof(Index));
+            if (post.UserId != user.Id) return RedirectToAction(nameof(UserPostsAsync));
+            return View(post);
         }
-        public IActionResult ConfirmDelete(int id)
+        public async Task<IActionResult> ConfirmDeleteAsync(int id)
         {
+            User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
+            Post post = postService.GetById(id);
+            if (user is null) return RedirectToAction(nameof(Index));
+            if (post.UserId != user.Id) return RedirectToAction(nameof(UserPostsAsync));
             postService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
